@@ -1,0 +1,15 @@
+mbgate: Transparent Modbus TCP-RTU Gateway.
+
+Usage:
+
+-p UART port;
+-b UART baud rate;
+-t UART timeout;
+-sp TCP socket port;
+-st TCP socket timeout;
+
+-d Run with default settings. UART: /dev/ttymxc5, baud rate: 115200, timeout: 500 ms. TCP: socket port: 1100, socket connection timeout: 5 min.
+
+
+Example: mbgate -d 9600
+
