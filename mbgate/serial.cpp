@@ -32,13 +32,13 @@
  speed: скорость, например: B9600, B57600, B115200
  ----------------------------------------------------------------------------*/
 int openPort(const char *COM_name, speed_t speed)
-{
-    
+{        
         int F_ID = open(COM_name, O_RDWR | O_NOCTTY );
+                
         if (F_ID == -1)
         {
                 char *errmsg = strerror(errno);
-                printf("!!! UART open port error %s\n", errmsg);                
+                printf("!!! Error UART open port: %s\n", errmsg);                
                 return -1;
         }
         else
@@ -168,15 +168,14 @@ int readData(int F_ID, unsigned char *buff, int size, int timeout_value)
  len - количество отправляемых байт
  ----------------------------------------------------------------------------*/
 int sendData(int F_ID, unsigned char* buff, int len)
-{       
+{    
         int n = write(F_ID, buff, len);
          
         if (n < 0)
         {
                 char *errmsg = strerror(errno);
-                printf("send: %s \r\n", errmsg);
-        }
-        
+                printf("uart send error: %s \r\n", errmsg);
+        }        
         
                 
         return n;

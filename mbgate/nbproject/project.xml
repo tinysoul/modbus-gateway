@@ -10,8 +10,8 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>/home/pi/mbgate</sourceRootElem>
                 <sourceRootElem>/root/mbgate</sourceRootElem>
+                <sourceRootElem>/home/pi/mbgate</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

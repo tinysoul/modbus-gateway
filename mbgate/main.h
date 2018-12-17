@@ -35,7 +35,7 @@ struct Data
     pthread_mutex_t mutex_id; 
 };
 
-#define version 1.2
+#define version 1.21
 
 
 

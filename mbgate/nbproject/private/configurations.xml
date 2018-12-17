@@ -26,18 +26,18 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" </runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -d</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 1500000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 460800</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 921600</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 3000000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 115200</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p "/dev/ttymxc6" -sp 1101</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc6 -sp 1101</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 369875455654</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp -124</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp #$%124</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp er24</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 321321321321321321321321321321321321321</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 1100</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -p /dev/ttymxc6 -sp 1101</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 1100</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

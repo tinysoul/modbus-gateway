@@ -38,12 +38,13 @@ int createSocket(int port, int socket_timeout)
     
     if (socket_desc == -1)
     {
-        std::cout << "Could not create socket \r\n" << std::endl;           
+        std::cout << "\r\n!!! Could not create socket \r\n" << std::endl;   
+        return -1;        
     }
     else
     {
         //std::cout << "Socket created: "<< socket_desc << "\r\n" << std::endl;   
-        std::cout << "Socket created "<< "\r\n" << std::endl;   
+        std::cout << "\r\nSocket created "<< "\r\n" << std::endl;   
     }
 
     struct timeval timeout;      

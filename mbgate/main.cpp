@@ -85,24 +85,26 @@ int main(int argc, char** argv)
         {
             std::cout << "\r\nmbgate: Transparent Modbus TCP-RTU Gateway.\r\n" << std::endl;
             std::cout << "Usage: \r" << std::endl;         
-            std::cout << "-p UART port;\r" << std::endl;         
-            std::cout << "-b UART baud rate;\r" << std::endl;         
-            std::cout << "-t UART timeout, ms.;\r" << std::endl;         
-            std::cout << "-sp TCP socket port;\r" << std::endl;         
-            std::cout << "-st TCP socket timeout, min.;\r"<< std::endl;         
-            std::cout << "-d Run with default settings. UART: /dev/ttymxc5, baud rate: 115200, timeout: 500 ms. TCP: socket port: 1100, socket connection timeout: 300 sec. \r\n" << std::endl;         
-            std::cout << "Example: mbgate -b 9600 \r\n" << std::endl;  
+            std::cout << "-p UART port (default: /dev/ttymxc5);\r" << std::endl;         
+            std::cout << "-b UART baud rate (default: 115200);\r" << std::endl;         
+            std::cout << "-t UART timeout, ms. (default: 500 ms);\r" << std::endl;         
+            std::cout << "-sp TCP socket port (default: 1100);\r" << std::endl;         
+            std::cout << "-st TCP socket timeout, min. (default: 5 min);\r"<< std::endl;         
+            std::cout << "-debug Debug mode (default: 1, print uart frames to the terminal);\r"<< std::endl;         
+            std::cout << "-d Run with default settings. \r" << std::endl;         
+            std::cout << "Example: mbgate -p /dev/ttymxc7 -b 9600 -sp 1101 \r\n" << std::endl;  
                     
             return 0;
         }        
-        else if (strcmp(argv[1],"-d")==0) //Default
+        else if (strcmp(argv[1],"-d")==0) //Default configuration
         {
-            std::cout <<"\nDefault parameters loaded. UART: /dev/ttymxc5, baud rate: 115200, timeout: 100 ms. Socket port: 1100, timeout: 5 min. \r\n" << std::endl;   
+            std::cout <<"\nDefault parameters loaded. UART: /dev/ttymxc5, baud rate 115200, timeout: 100 ms. TCP: socket port 1100, timeout 5 min. \r\n" << std::endl;   
             
             data[i_struct].uart_timeout = 300000; //300 мс.
             data[i_struct].serial_id = openPort("/dev/ttymxc5", B115200);           
             data[i_struct].socket_timeout = 300; //5 мин.            
             sock_res = createSocket(1100, data[i_struct].socket_timeout);            
+            debug_mode = 1;
         }        
         else
         {
@@ -112,32 +114,32 @@ int main(int argc, char** argv)
                 if (strcmp(argv[i],"-p")==0) 
                 {
                     uart_port = argv[i+1];                
-                    std::cout << "Debug: uart_port: " << uart_port << "\r\n" << std::endl;   
+                    //std::cout << "Debug: uart_port: " << uart_port << "\r\n" << std::endl;   
                 }
                 else if (strcmp(argv[i],"-b")==0) 
                 {
                     uart_baud_rate = atoi(argv[i+1]);                
-                    std::cout << "Debug: uart_baud_rate: " << uart_baud_rate << "\r\n" << std::endl;   
+                    //std::cout << "Debug: uart_baud_rate: " << uart_baud_rate << "\r\n" << std::endl;   
                 }
                 else if (strcmp(argv[i],"-t")==0) 
                 {
                     uart_timeout = atoi(argv[i+1]);                
-                    std::cout << "Debug: uart_timeout: " << uart_timeout << "\r\n" << std::endl;   
+                    //std::cout << "Debug: uart_timeout: " << uart_timeout << "\r\n" << std::endl;   
                 }            
                 else if (strcmp(argv[i],"-sp")==0) 
                 {
                     socket_port = atoi(argv[i+1]);                
-                    std::cout << "Debug: socket_port: " << socket_port << "\r\n" << std::endl;   
+                    //std::cout << "Debug: socket_port: " << socket_port << "\r\n" << std::endl;   
                 }              
                 else if (strcmp(argv[i],"-st")==0) 
                 {
                     socket_timeout = atoi(argv[i+1]);                
-                    std::cout << "Debug: socket_timeout: " << socket_timeout << "\r\n" << std::endl;   
+                    //std::cout << "Debug: socket_timeout: " << socket_timeout << "\r\n" << std::endl;   
                 }
                 else if (strcmp(argv[i],"-debug")==0) 
                 {   
                     debug_mode = atoi(argv[i+1]);                
-                    std::cout << "Debug mode: " << debug_mode << "\r\n" << std::endl;   
+                    //std::cout << "Debug mode: " << debug_mode << "\r\n" << std::endl;   
                 }                                 
             }
 
@@ -166,6 +168,11 @@ int main(int argc, char** argv)
                 data[i_struct].serial_id = openPort(uart_port, B115200);   
             }            
             
+            if(data[i_struct].serial_id == -1) //Exit if error open UART
+            {
+                return 0;
+            }
+            
             
 
             if (socket_timeout != 0)
@@ -187,11 +194,27 @@ int main(int argc, char** argv)
             {
                 sock_res = createSocket(1100, data[i_struct].socket_timeout);
             }        
+            
+            if(sock_res == -1) //Exit if error create socket
+            {
+                return 0;
+            }
         }
     }
     else
     {
-        std::cout << "\nmbgate " << version << ": Transparent Modbus TCP-RTU Gateway. Use -d to run with default parameters. For help, type: mbgate -h \r\n" << std::endl;        
+        //std::cout << "\nmbgate " << version << ": Transparent Modbus TCP-RTU Gateway. Use -d to run with default parameters. For help, type: mbgate -h \r\n" << std::endl;        
+        
+        std::cout << "\r\nmbgate "<< version <<": Transparent Modbus TCP-RTU Gateway.\r\n" << std::endl;
+        std::cout << "Usage: \r" << std::endl;         
+        std::cout << "-p UART port (default: /dev/ttymxc5);\r" << std::endl;         
+        std::cout << "-b UART baud rate (default: 115200);\r" << std::endl;         
+        std::cout << "-t UART timeout, ms. (default: 500 ms);\r" << std::endl;         
+        std::cout << "-sp TCP socket port (default: 1100);\r" << std::endl;         
+        std::cout << "-st TCP socket timeout, min. (default: 5 min);\r"<< std::endl;         
+        std::cout << "-debug Debug mode (default: 1, print uart frames to the terminal);\r"<< std::endl;         
+        std::cout << "-d Run with default settings. \r" << std::endl;         
+        std::cout << "Example: mbgate -p /dev/ttymxc7 -b 9600 -sp 1101 \r\n" << std::endl;          
 
         return 0;
     }
