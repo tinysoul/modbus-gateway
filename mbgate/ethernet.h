@@ -23,7 +23,7 @@
 #include <main.h> 
     
     
-int createSocket(int port);
+int createSocket(int port, int socket_timeout);
 void closeSocket(int fd);
 int readSocket(int F_ID, unsigned char *buff, int size);
 int sendall(int s, unsigned char* buf, int len, int flags);

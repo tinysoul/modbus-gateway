@@ -58,8 +58,10 @@ int openPort(const char *COM_name, speed_t speed)
         
         cfsetispeed(&options, speed); /*установка read скорости порта*/
         cfsetospeed(&options, speed); /*установка write скорости порта*/
-                
-        options.c_cc[VTIME] = 5; /*Время ожидания байта 100 мс. */
+
+        
+        
+        options.c_cc[VTIME] = 5; /*Время ожидания байта 500 мс. Время задержки между пакетами. Silent interval. */
         options.c_cc[VMIN] = 0; /*минимальное число байт для чтения*/
 
 

@@ -29,6 +29,7 @@
 
 
 extern sem_t semaphore; 
+extern int debug_mode;
 
 uint8_t ethernetReadBuffer[300];
 uint8_t ethernetWriteBuffer[300];
@@ -108,18 +109,22 @@ void* connection_handler(void* parameters)
         
 //////////Transmit a message to UART -->
          
-            
+        tcflush(data->serial_id, TCOFLUSH | TCIFLUSH);              
+        
 
         result = sendData( data->serial_id, serialWriteBuffer, serial_byte_to_write );
 
-        //Debug
-        for(int i = 0; i < serial_byte_to_write; i++) printf("%x ", serialWriteBuffer[i]);            
-        std::cout << "--> write to uart: " << result << "\r" << std::endl;                        
-
+        if(debug_mode == 1)
+        {
+            //Debug
+            for(int i = 0; i < serial_byte_to_write; i++) printf("%x ", serialWriteBuffer[i]);            
+            std::cout << "--> write to uart: " << result << "\r" << std::endl;                        
+        }
 
         //tcflush(data->serial_id, TCOFLUSH | TCIFLUSH);              
         //tcdrain(data->serial_id);
-        //usleep(300000);
+        //usleep(500000);
+            
             
         
             
@@ -132,9 +137,12 @@ void* connection_handler(void* parameters)
         serial_size = readData( data->serial_id, &serialReadBuffer[0], expected_number_of_bytes+5, data->uart_timeout );
                 
 
-        //Debug
-        for(int i = 0; i < serial_size; i++) printf("%x ", serialReadBuffer[i]);            
-        std::cout << "<-- read from uart: " << serial_size << "\r" << std::endl;                                               
+        if(debug_mode == 1)
+        {
+            //Debug
+            for(int i = 0; i < serial_size; i++) printf("%x ", serialReadBuffer[i]);            
+            std::cout << "<-- read from uart: " << serial_size << "\r" << std::endl;                                               
+        }
                                
        
 
@@ -146,9 +154,26 @@ void* connection_handler(void* parameters)
         ethernetWriteBuffer[3] = 0x00;    
         
         if (serial_size > 0) respond_uart_size = serial_size - 2;  //Calculate size of packet without CRC
-        else if (serial_size == 0) respond_uart_size = 3;
+        else if (serial_size == 0) respond_uart_size = 3;          //Size of packet for error message
 
-        for(int i = 0; i < respond_uart_size; i++) ethernetWriteBuffer[i+6] = serialReadBuffer[i];
+        //Copy serial data to eth
+        for(int i = 0; i < respond_uart_size; i++) ethernetWriteBuffer[i+6] = serialReadBuffer[i]; 
+        
+//        //Find start of the normal frame if the recieved packet was broken
+//        if(serialReadBuffer[0] != serialWriteBuffer[0] && serialReadBuffer[1] != serialWriteBuffer[1]) 
+//        {
+//            for(int i = 0; i < respond_uart_size-1; i++) 
+//            {
+//                if (serialReadBuffer[i] == serialWriteBuffer[0] && serialReadBuffer[i+1] == serialWriteBuffer[1])
+//                {
+//                    for(int j = 0; j < respond_uart_size; j++) 
+//                }                 
+//            }
+//        }
+//        else
+//        {
+//            for(int i = 0; i < respond_uart_size; i++) ethernetWriteBuffer[i+6] = serialReadBuffer[i]; 
+//        }
             
     
         //Modbus TCP Length
@@ -167,12 +192,6 @@ void* connection_handler(void* parameters)
         //Debug
         //for(int i = 0; i < respond_uart_size+6; i++) printf("%x ", ethernetWriteBuffer[i]);            
         //std::cout << "<-- write to ethernet: " << result << "\r" << std::endl;                                               
-        
-        
-        
-        
-        
-        
         
         
 //        //Clear the buffers

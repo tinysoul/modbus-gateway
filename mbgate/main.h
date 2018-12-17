@@ -21,7 +21,7 @@
 #include <stdlib.h> 
 #include <netinet/in.h> 
 #include <string.h> 
-#include <main.h> 
+
 
 struct Data
 {    
@@ -34,6 +34,8 @@ struct Data
     pthread_t thread_id;    
     pthread_mutex_t mutex_id; 
 };
+
+#define version 1.2
 
 
 

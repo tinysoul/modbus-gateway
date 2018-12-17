@@ -4,22 +4,22 @@
     <logicalFolder name="SourceFiles"
                    displayName="Исходные файлы"
                    projectFiles="true">
-      <itemPath>/home/pi/mbgate/RS485.cpp</itemPath>
-      <itemPath>/home/pi/mbgate/connection_handler.cpp</itemPath>
-      <itemPath>/home/pi/mbgate/crc.cpp</itemPath>
-      <itemPath>/home/pi/mbgate/ethernet.cpp</itemPath>
-      <itemPath>main.cpp</itemPath>
-      <itemPath>/home/pi/mbgate/serial.cpp</itemPath>
+      <itemPath>/root/mbgate/RS485.cpp</itemPath>
+      <itemPath>/root/mbgate/connection_handler.cpp</itemPath>
+      <itemPath>/root/mbgate/crc.cpp</itemPath>
+      <itemPath>/root/mbgate/ethernet.cpp</itemPath>
+      <itemPath>/root/mbgate/main.cpp</itemPath>
+      <itemPath>/root/mbgate/serial.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Файлы заголовков"
                    projectFiles="true">
-      <itemPath>/home/pi/mbgate/RS485.h</itemPath>
-      <itemPath>/home/pi/mbgate/connection_handler.h</itemPath>
-      <itemPath>/home/pi/mbgate/crc.h</itemPath>
-      <itemPath>/home/pi/mbgate/ethernet.h</itemPath>
-      <itemPath>/home/pi/mbgate/main.h</itemPath>
-      <itemPath>/home/pi/mbgate/serial.h</itemPath>
+      <itemPath>/root/mbgate/RS485.h</itemPath>
+      <itemPath>/root/mbgate/connection_handler.h</itemPath>
+      <itemPath>/root/mbgate/crc.h</itemPath>
+      <itemPath>/root/mbgate/ethernet.h</itemPath>
+      <itemPath>/root/mbgate/main.h</itemPath>
+      <itemPath>/root/mbgate/serial.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Файлы ресурсов"
@@ -39,6 +39,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>/home/pi/mbgate</Elem>
+    <Elem>/root/mbgate</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -51,6 +52,7 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>/root/mbgate</pElem>
             <pElem>/home/pi/mbgate</pElem>
           </incDir>
         </ccTool>
@@ -58,35 +60,32 @@
           <commandLine>-lpthread -lgtest</commandLine>
         </linkerTool>
       </compileType>
-      <item path="/home/pi/mbgate/RS485.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/RS485.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/RS485.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/RS485.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/connection_handler.cpp"
+      <item path="/root/mbgate/connection_handler.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/connection_handler.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="/root/mbgate/connection_handler.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/crc.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/crc.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/crc.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/crc.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/ethernet.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/ethernet.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/ethernet.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/ethernet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/main.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/serial.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/main.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/serial.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/serial.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -109,35 +108,32 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="/home/pi/mbgate/RS485.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/RS485.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/RS485.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/RS485.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/connection_handler.cpp"
+      <item path="/root/mbgate/connection_handler.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/connection_handler.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="/root/mbgate/connection_handler.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/crc.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/crc.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/crc.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/crc.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/ethernet.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/ethernet.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/ethernet.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/ethernet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/main.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/serial.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/main.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="/home/pi/mbgate/serial.h" ex="false" tool="3" flavor2="0">
+      <item path="/root/mbgate/serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="/root/mbgate/serial.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

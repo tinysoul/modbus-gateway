@@ -35,12 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/79b25175/RS485.o \
-	${OBJECTDIR}/_ext/79b25175/connection_handler.o \
-	${OBJECTDIR}/_ext/79b25175/crc.o \
-	${OBJECTDIR}/_ext/79b25175/ethernet.o \
-	${OBJECTDIR}/_ext/79b25175/serial.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/_ext/74dbe21e/RS485.o \
+	${OBJECTDIR}/_ext/74dbe21e/connection_handler.o \
+	${OBJECTDIR}/_ext/74dbe21e/crc.o \
+	${OBJECTDIR}/_ext/74dbe21e/ethernet.o \
+	${OBJECTDIR}/_ext/74dbe21e/main.o \
+	${OBJECTDIR}/_ext/74dbe21e/serial.o
 
 
 # C Compiler Flags
@@ -67,35 +67,35 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mbgate: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mbgate ${OBJECTFILES} ${LDLIBSOPTIONS} -lpthread -lgtest
 
-${OBJECTDIR}/_ext/79b25175/RS485.o: /home/pi/mbgate/RS485.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/79b25175
+${OBJECTDIR}/_ext/74dbe21e/RS485.o: /root/mbgate/RS485.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/74dbe21e
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/79b25175/RS485.o /home/pi/mbgate/RS485.cpp
+	$(COMPILE.cc) -g -I/root/mbgate -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/74dbe21e/RS485.o /root/mbgate/RS485.cpp
 
-${OBJECTDIR}/_ext/79b25175/connection_handler.o: /home/pi/mbgate/connection_handler.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/79b25175
+${OBJECTDIR}/_ext/74dbe21e/connection_handler.o: /root/mbgate/connection_handler.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/74dbe21e
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/79b25175/connection_handler.o /home/pi/mbgate/connection_handler.cpp
+	$(COMPILE.cc) -g -I/root/mbgate -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/74dbe21e/connection_handler.o /root/mbgate/connection_handler.cpp
 
-${OBJECTDIR}/_ext/79b25175/crc.o: /home/pi/mbgate/crc.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/79b25175
+${OBJECTDIR}/_ext/74dbe21e/crc.o: /root/mbgate/crc.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/74dbe21e
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/79b25175/crc.o /home/pi/mbgate/crc.cpp
+	$(COMPILE.cc) -g -I/root/mbgate -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/74dbe21e/crc.o /root/mbgate/crc.cpp
 
-${OBJECTDIR}/_ext/79b25175/ethernet.o: /home/pi/mbgate/ethernet.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/79b25175
+${OBJECTDIR}/_ext/74dbe21e/ethernet.o: /root/mbgate/ethernet.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/74dbe21e
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/79b25175/ethernet.o /home/pi/mbgate/ethernet.cpp
+	$(COMPILE.cc) -g -I/root/mbgate -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/74dbe21e/ethernet.o /root/mbgate/ethernet.cpp
 
-${OBJECTDIR}/_ext/79b25175/serial.o: /home/pi/mbgate/serial.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/79b25175
+${OBJECTDIR}/_ext/74dbe21e/main.o: /root/mbgate/main.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/74dbe21e
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/79b25175/serial.o /home/pi/mbgate/serial.cpp
+	$(COMPILE.cc) -g -I/root/mbgate -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/74dbe21e/main.o /root/mbgate/main.cpp
 
-${OBJECTDIR}/main.o: main.cpp
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/_ext/74dbe21e/serial.o: /root/mbgate/serial.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/74dbe21e
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/root/mbgate -I/home/pi/mbgate -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/74dbe21e/serial.o /root/mbgate/serial.cpp
 
 # Subprojects
 .build-subprojects:

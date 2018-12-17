@@ -12,7 +12,8 @@
  */
 
 #include "RS485.h"
-#include <serial.h>
+#include <linux/serial.h>
+#include <sys/ioctl.h>
 
 int set_rs485(int fd)
 {

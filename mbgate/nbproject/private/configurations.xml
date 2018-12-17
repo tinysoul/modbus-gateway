@@ -13,6 +13,8 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
+        <gdb_signals>
+        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>
@@ -24,18 +26,18 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 1500000 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 115200 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 921600 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 460800 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 230400 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 9600 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 9600 -t 5000000 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 115200 -t 5000000 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 115200 -t 100000 -sp 9000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 9600 -t 100000 -sp 9000</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" </runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -d</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 1500000</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 460800</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 921600</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 3000000</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b 115200</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p "/dev/ttymxc6" -sp 1101</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc6 -sp 1101</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -p /dev/ttyUSB0 -b 9600 -t 100000 -sp 9000</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -p /dev/ttymxc6 -sp 1101</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

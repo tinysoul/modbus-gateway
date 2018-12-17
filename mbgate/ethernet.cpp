@@ -30,21 +30,26 @@ extern int max_client;
 
 
 
-int createSocket(int port)
+int createSocket(int port, int socket_timeout)
 {
 
     //Create socket
     socket_desc = socket(AF_INET , SOCK_STREAM , 0);
+    
     if (socket_desc == -1)
     {
         std::cout << "Could not create socket \r\n" << std::endl;           
     }
-    
-    std::cout << "Socket created: "<< socket_desc << "\r\n" << std::endl;   
+    else
+    {
+        //std::cout << "Socket created: "<< socket_desc << "\r\n" << std::endl;   
+        std::cout << "Socket created "<< "\r\n" << std::endl;   
+    }
 
     struct timeval timeout;      
-    timeout.tv_sec = 300;
+    timeout.tv_sec = socket_timeout;
     timeout.tv_usec = 0;
+    
     
     
     if (setsockopt (socket_desc, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) < 0)        
@@ -88,6 +93,7 @@ int createSocket(int port)
 
 void closeSocket(int fd)
 {
+    shutdown(fd, SHUT_RDWR);
     close(fd);
 };
 
