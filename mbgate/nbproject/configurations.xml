@@ -29,6 +29,12 @@
                    displayName="Файлы тестов"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f2"
+                     displayName="gtest_crc"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>/root/mbgate/tests/gtest_crc.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1"
                      displayName="gtest_serial"
                      projectFiles="true"
@@ -93,6 +99,11 @@
       </item>
       <item path="/root/mbgate/serial.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="/root/mbgate/tests/gtest_crc.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool>
+          <commandLine>-lgtest -lpthread -lgtest_main</commandLine>
+        </ccTool>
+      </item>
       <item path="/root/mbgate/tests/gtest_serial.cpp"
             ex="false"
             tool="1"
@@ -101,6 +112,11 @@
           <commandLine>-lgtest -lpthread</commandLine>
         </ccTool>
       </item>
+      <folder path="TestFiles">
+        <linkerTool>
+          <commandLine>-lgtest_main</commandLine>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -114,7 +130,23 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
-          <commandLine>-lgtest -lgtest_main -lpthread</commandLine>
+          <commandLine>-lgtest -lpthread</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <commandLine>-lgtest -lpthread</commandLine>
         </linkerTool>
       </folder>
     </conf>
@@ -165,6 +197,8 @@
       </item>
       <item path="/root/mbgate/serial.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="/root/mbgate/tests/gtest_crc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="/root/mbgate/tests/gtest_serial.cpp"
             ex="false"
             tool="1"
@@ -183,6 +217,21 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
     </conf>

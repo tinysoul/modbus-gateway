@@ -18,7 +18,7 @@
     
 //uint16_t CRC16(const uint8_t *pcBlock, uint32_t len);
 uint16_t CRC16(uint8_t *adr_buffer, uint32_t byte_cnt);
-
+uint16_t CRC16_F(const uint8_t *pcBlock, uint32_t len);
 
 
 #endif /* CRC_H */

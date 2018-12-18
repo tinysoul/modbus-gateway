@@ -47,10 +47,12 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
+	${TESTDIR}/TestFiles/f2 \
 	${TESTDIR}/TestFiles/f1
 
 # Test Object Files
 TESTOBJECTFILES= \
+	${TESTDIR}/_ext/eeab66f0/gtest_crc.o \
 	${TESTDIR}/_ext/eeab66f0/gtest_serial.o
 
 # C Compiler Flags
@@ -114,9 +116,19 @@ ${OBJECTDIR}/_ext/74dbe21e/serial.o: /root/mbgate/serial.cpp
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/_ext/eeab66f0/gtest_crc.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
+
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/_ext/eeab66f0/gtest_serial.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
+
+
+${TESTDIR}/_ext/eeab66f0/gtest_crc.o: /root/mbgate/tests/gtest_crc.cpp 
+	${MKDIR} -p ${TESTDIR}/_ext/eeab66f0
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/_ext/eeab66f0/gtest_crc.o /root/mbgate/tests/gtest_crc.cpp
 
 
 ${TESTDIR}/_ext/eeab66f0/gtest_serial.o: /root/mbgate/tests/gtest_serial.cpp 
@@ -207,6 +219,7 @@ ${OBJECTDIR}/_ext/74dbe21e/serial_nomain.o: ${OBJECTDIR}/_ext/74dbe21e/serial.o 
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${TESTDIR}/TestFiles/f2 || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	else  \
 	    ./${TEST} || true; \

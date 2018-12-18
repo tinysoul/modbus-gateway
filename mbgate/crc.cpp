@@ -14,9 +14,9 @@
 #include "crc.h"
 #include <stdint.h>
 
-//#define CRC16_INIT 0xFFFF
-//
-//uint16_t CRC16(const uint8_t *pcBlock, uint32_t len)
+#define CRC16_INIT 0xFFFF
+
+//uint16_t CRC16_F(const uint8_t *pcBlock, uint32_t len)
 //{
 //	uint8_t ixx;
 //        uint16_t crc = CRC16_INIT;
