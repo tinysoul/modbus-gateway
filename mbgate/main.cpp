@@ -138,7 +138,7 @@ int main(int argc, char** argv)
                 }
                 else if (strcmp(argv[i],"-debug")==0) 
                 {   
-                    debug_mode = atoi(argv[i+1]);                
+                    debug_mode = 1;                
                     //std::cout << "Debug mode: " << debug_mode << "\r\n" << std::endl;   
                 }                                 
             }
@@ -212,7 +212,7 @@ int main(int argc, char** argv)
         std::cout << "-t UART timeout, ms. (default: 500 ms);\r" << std::endl;         
         std::cout << "-sp TCP socket port (default: 1100);\r" << std::endl;         
         std::cout << "-st TCP socket timeout, min. (default: 5 min);\r"<< std::endl;         
-        std::cout << "-debug Debug mode (default: 1, print uart frames to the terminal);\r"<< std::endl;         
+        std::cout << "-debug Debug mode (print uart frames to the terminal window);\r"<< std::endl;         
         std::cout << "-d Run with default settings. \r" << std::endl;         
         std::cout << "Example: mbgate -p /dev/ttymxc7 -b 9600 -sp 1101 \r\n" << std::endl;          
 

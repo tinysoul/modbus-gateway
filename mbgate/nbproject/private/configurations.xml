@@ -13,8 +13,6 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
-        <gdb_signals>
-        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>
@@ -26,18 +24,18 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p "/dev/ttymxc6" -sp 1101</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc6 -sp 1101</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 369875455654</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp -124</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp #$%124</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp er24</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 321321321321321321321321321321321321321</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 1100</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000 -debug 1</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000 -debug </runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000 </runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 1100</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

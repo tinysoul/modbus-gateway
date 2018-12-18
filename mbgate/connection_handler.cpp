@@ -81,15 +81,9 @@ void* connection_handler(void* parameters)
         serial_byte_to_write = ((ethernetReadBuffer[4] >> 8) + ethernetReadBuffer[5]) + 2;
         
         //Calculate CRC for transmission by UART
-        if(serialWriteBuffer[1] == 0x03 || serialWriteBuffer[1] == 0x04 || serialWriteBuffer[1] == 0x05 || serialWriteBuffer[1] == 0x06) //Function code
-        {
-            expected_number_of_bytes = ((serialWriteBuffer[4] >> 8) + serialWriteBuffer[5]) * 2;
-            
-            crc = CRC16( (uint8_t*) &serialWriteBuffer, 6 );        
-            serialWriteBuffer[6] = crc;
-            serialWriteBuffer[7] = crc >> 8;                    
-        }
-        else if (serialWriteBuffer[1] == 0x10)
+        
+
+        if (serialWriteBuffer[1] == 0x10)
         {
             expected_number_of_bytes = ((serialWriteBuffer[4] >> 8) + serialWriteBuffer[5]) * 2;
             
@@ -97,6 +91,14 @@ void* connection_handler(void* parameters)
             serialWriteBuffer[11] = crc;
             serialWriteBuffer[12] = crc >> 8;                
         }
+        else 
+        {
+            expected_number_of_bytes = ((serialWriteBuffer[4] >> 8) + serialWriteBuffer[5]) * 2;
+            
+            crc = CRC16( (uint8_t*) &serialWriteBuffer, 6 );        
+            serialWriteBuffer[6] = crc;
+            serialWriteBuffer[7] = crc >> 8;                    
+        }        
         
         
         //Debug
@@ -109,7 +111,7 @@ void* connection_handler(void* parameters)
         
 //////////Transmit a message to UART -->
          
-        tcflush(data->serial_id, TCOFLUSH | TCIFLUSH);              
+        //tcflush(data->serial_id, TCOFLUSH | TCIFLUSH);              
         
 
         result = sendData( data->serial_id, serialWriteBuffer, serial_byte_to_write );
@@ -154,26 +156,29 @@ void* connection_handler(void* parameters)
         ethernetWriteBuffer[3] = 0x00;    
         
         if (serial_size > 0) respond_uart_size = serial_size - 2;  //Calculate size of packet without CRC
-        else if (serial_size == 0) respond_uart_size = 3;          //Size of packet for error message
+        //else if (serial_size == 0) respond_uart_size = 3;          //Size of packet for error message
 
         //Copy serial data to eth
-        for(int i = 0; i < respond_uart_size; i++) ethernetWriteBuffer[i+6] = serialReadBuffer[i]; 
+        //for(int i = 0; i < respond_uart_size; i++) ethernetWriteBuffer[i+6] = serialReadBuffer[i]; 
         
-//        //Find start of the normal frame if the recieved packet was broken
-//        if(serialReadBuffer[0] != serialWriteBuffer[0] && serialReadBuffer[1] != serialWriteBuffer[1]) 
-//        {
-//            for(int i = 0; i < respond_uart_size-1; i++) 
-//            {
-//                if (serialReadBuffer[i] == serialWriteBuffer[0] && serialReadBuffer[i+1] == serialWriteBuffer[1])
-//                {
-//                    for(int j = 0; j < respond_uart_size; j++) 
-//                }                 
-//            }
-//        }
-//        else
-//        {
-//            for(int i = 0; i < respond_uart_size; i++) ethernetWriteBuffer[i+6] = serialReadBuffer[i]; 
-//        }
+        //Find start of the normal frame if the recieved packet was broken
+        if(serialReadBuffer[0] != serialWriteBuffer[0] && serialReadBuffer[1] != serialWriteBuffer[1]) 
+        {
+            for(int i = 0; i < respond_uart_size-1; i++) 
+            {
+                if (serialReadBuffer[i] == serialWriteBuffer[0] && serialReadBuffer[i+1] == serialWriteBuffer[1])
+                {
+                    for(int j = 0; j < respond_uart_size; j++) ethernetWriteBuffer[j+6] = serialReadBuffer[j+i]; 
+                    
+                    if(debug_mode == 1)
+                    std::cout << "\n!!! Recieved broken frame, the shift is: " << i << " byte\r\n" << std::endl;                                               
+                }                 
+            }
+        }
+        else
+        {
+            for(int i = 0; i < respond_uart_size; i++) ethernetWriteBuffer[i+6] = serialReadBuffer[i]; 
+        }
             
     
         //Modbus TCP Length
@@ -185,7 +190,7 @@ void* connection_handler(void* parameters)
 
 //////////Send the message to Ethernet-client -->
 
-        if (serial_size != 0)            
+        if (serial_size > 3)            
         result = send( data->socket_id, &ethernetWriteBuffer[0], respond_uart_size + 6, 0 );                            
 
         
