@@ -25,6 +25,7 @@
 #include <semaphore.h>
 #include <iostream>
 #include "serial.h"
+#include <syslog.h> 
 
 
 
@@ -53,7 +54,8 @@ void* connection_handler(void* parameters)
 
     struct Data* data = (struct Data*)parameters;    
    
-    std::cout << "Start thread \r" << std::endl;              
+    std::cout << "Start thread \r" << std::endl;        
+    syslog(LOG_NOTICE | LOG_PID, "Start thread");              
     
     while( true )
     {        
@@ -67,10 +69,23 @@ void* connection_handler(void* parameters)
         if (eth_read_size == 0 || eth_read_size == -1)
         {            
             closeSocket(data->socket_id);    
-            if (eth_read_size == 0) std::cout << "Client disconnect socket\r" << std::endl;                
-            if (eth_read_size == -1) std::cout << "Socket timeout \r" << std::endl;                
+            if (eth_read_size == 0) 
+            {
+                std::cout << "Client disconnect socket\r" << std::endl;                
+                syslog(LOG_NOTICE | LOG_PID, "Client disconnect socket");              
+            }
+            if (eth_read_size == -1) 
+            {
+                std::cout << "Socket timeout \r" << std::endl;                
+                syslog(LOG_WARNING | LOG_PID, "Socket timeout");              
+            }
+            
             std::cout << "Socket closed \r" << std::endl;                
+            syslog(LOG_NOTICE | LOG_PID, "Socket closed");              
+            
             std::cout << "Thread exit \r" << std::endl;              
+            syslog(LOG_NOTICE | LOG_PID, "Thread exit");              
+            
             pthread_exit(0);
         }
         

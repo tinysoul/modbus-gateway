@@ -24,6 +24,7 @@
 #include "serial.h"
 #include "main.h"
 #include <pthread.h>
+#include <syslog.h> 
 
 
 /*----------------------------------------------------------------------------
@@ -37,13 +38,17 @@ int openPort(const char *COM_name, speed_t speed)
                 
         if (F_ID == -1)
         {
-                char *errmsg = strerror(errno);
-                printf("!!! Error UART open port: %s\n", errmsg);                
+            //char *errmsg = strerror(errno);
+            //printf("!!! Error UART open port: %s\n", errmsg);                
+            std::cout << "!!! Error open UART port \r\n" << std::endl;   
+            syslog(LOG_WARNING | LOG_PID, "Error open UART port");
+            
                 return -1;
         }
         else
         {
             std::cout << "UART port open: " << F_ID << "\r\n" << std::endl;   
+            syslog(LOG_NOTICE | LOG_PID, "UART port open (descriptor: %d)", F_ID);
         }
         struct termios options; /*структура для установки порта*/
         
@@ -138,13 +143,16 @@ int readData(int F_ID, unsigned char *buff, int size, int timeout_value)
 
             if (n == -1)
             {
-                char *errmsg = strerror(errno);
-                printf("!!! read uart error: %s \r\n", errmsg);
+                //char *errmsg = strerror(errno);
+                //printf("!!! read uart error: %s \r\n", errmsg);
+                std::cout << "!!! Read uart error \r\n" << std::endl;   
+                syslog(LOG_WARNING | LOG_PID, "Read uart error");                
                 
             }
             else if(n == 0)
             {         
                 std::cout << "!!! UART read timeout " << "\r" << std::endl; 
+                syslog(LOG_WARNING | LOG_PID, "UART read timeout");                
             }
             else
             {                
@@ -173,8 +181,10 @@ int sendData(int F_ID, unsigned char* buff, int len)
          
         if (n < 0)
         {
-                char *errmsg = strerror(errno);
-                printf("uart send error: %s \r\n", errmsg);
+                //char *errmsg = strerror(errno);
+                //printf("uart send error: %s \r\n", errmsg);
+                std::cout << "!!! UART write error" << "\r" << std::endl; 
+                syslog(LOG_WARNING | LOG_PID, "UART write error"); 
         }        
         
                 

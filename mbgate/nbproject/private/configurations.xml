@@ -24,15 +24,15 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 369875455654</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp -124</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp #$%124</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp er24</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 321321321321321321321321321321321321321</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc5 -sp 1100</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000 -debug 1</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000 -debug </runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000 > error.log</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000 </runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" -p /dev/ttymxc1 -sp 1100 -b 3000000</runcommand>

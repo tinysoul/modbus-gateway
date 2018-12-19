@@ -21,6 +21,7 @@
 #include <linux/serial.h>
 #include "RS485.h"
 #include <signal.h>
+#include <syslog.h> 
 
 
 extern int socket_desc , client_sock , c;
@@ -56,9 +57,11 @@ void sig_handler(int signum)
 //SIGINT
 //SIGQUIT
     
-    if(signum ==2)
+    if(signum == SIGTERM | signum == SIGSTOP | signum == SIGINT | signum == SIGQUIT )
     {
-        printf("Close TCP socket and UART port.\n\n", signum);
+        printf("Close TCP socket, UART port and exit.\n\n", signum);
+        syslog(LOG_NOTICE, "Close TCP socket, UART port and exit.");
+        
         closeSocket(data[i_struct].socket_id);
         closeCom(data[i_struct].serial_id);
         //pthread_exit(data[i_struct].thread_id);
@@ -75,6 +78,8 @@ int main(int argc, char** argv)
     //Assign signal handler
     signal(SIGINT, sig_handler);
     
+    //Write message to system log
+    openlog("mbgate", LOG_PID, LOG_USER);
 
     
     
@@ -114,32 +119,32 @@ int main(int argc, char** argv)
                 if (strcmp(argv[i],"-p")==0) 
                 {
                     uart_port = argv[i+1];                
-                    //std::cout << "Debug: uart_port: " << uart_port << "\r\n" << std::endl;   
+                    if (debug_mode == 1) std::cout << "Debug: uart_port: " << uart_port << "\r\n" << std::endl;   
                 }
                 else if (strcmp(argv[i],"-b")==0) 
                 {
                     uart_baud_rate = atoi(argv[i+1]);                
-                    //std::cout << "Debug: uart_baud_rate: " << uart_baud_rate << "\r\n" << std::endl;   
+                    if (debug_mode == 1) std::cout << "Debug: uart_baud_rate: " << uart_baud_rate << "\r\n" << std::endl;   
                 }
                 else if (strcmp(argv[i],"-t")==0) 
                 {
                     uart_timeout = atoi(argv[i+1]);                
-                    //std::cout << "Debug: uart_timeout: " << uart_timeout << "\r\n" << std::endl;   
+                    if (debug_mode == 1) std::cout << "Debug: uart_timeout: " << uart_timeout << "\r\n" << std::endl;   
                 }            
                 else if (strcmp(argv[i],"-sp")==0) 
                 {
                     socket_port = atoi(argv[i+1]);                
-                    //std::cout << "Debug: socket_port: " << socket_port << "\r\n" << std::endl;   
+                    if (debug_mode == 1) std::cout << "Debug: socket_port: " << socket_port << "\r\n" << std::endl;   
                 }              
                 else if (strcmp(argv[i],"-st")==0) 
                 {
                     socket_timeout = atoi(argv[i+1]);                
-                    //std::cout << "Debug: socket_timeout: " << socket_timeout << "\r\n" << std::endl;   
+                    if (debug_mode == 1) std::cout << "Debug: socket_timeout: " << socket_timeout << "\r\n" << std::endl;   
                 }
                 else if (strcmp(argv[i],"-debug")==0) 
                 {   
                     debug_mode = 1;                
-                    //std::cout << "Debug mode: " << debug_mode << "\r\n" << std::endl;   
+                    std::cout << "Debug mode: " << debug_mode << "\r\n" << std::endl;   
                 }                                 
             }
 
@@ -170,6 +175,7 @@ int main(int argc, char** argv)
             
             if(data[i_struct].serial_id == -1) //Exit if error open UART
             {
+                
                 return 0;
             }
             
@@ -238,10 +244,13 @@ int main(int argc, char** argv)
         if (data[i_struct].socket_id > 0)                 
         {                   
             std::cout << "TCP connection accepted: " << data[i_struct].socket_id << "\r\n" << std::endl;
+            syslog(LOG_NOTICE | LOG_PID, "TCP connection accepted (descriptor: %d)", data[i_struct].socket_id);
         }
         else
         {
             std::cout << "TCP connection failed. " << data[i_struct].socket_id <<  " Exit. \r"  << std::endl;     
+            syslog(LOG_WARNING | LOG_PID, "TCP connection failed %d. Exit.", data[i_struct].socket_id);
+            
             return 0;
         }
 
@@ -253,12 +262,15 @@ int main(int argc, char** argv)
             data[i_struct].thread_id = thread_id;      
             
             std::cout << "Handler assigned \r\n" << std::endl;
+            syslog(LOG_NOTICE | LOG_PID, "Handler assigned");
             
             pthread_join(data[i_struct].thread_id, NULL);        
         }
         else 
         {
             std::cout << "Could not create thread \r\n" << std::endl;
+            syslog(LOG_WARNING | LOG_PID, "Could not create thread ");
+            
             return 1;
         }
 

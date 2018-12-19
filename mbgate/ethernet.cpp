@@ -22,6 +22,7 @@
 #include "crc.h"
 #include "main.h"
 #include <iostream>
+#include <syslog.h> 
 
 int socket_desc, client_sock , c;
 struct sockaddr_in server , client;  
@@ -38,13 +39,16 @@ int createSocket(int port, int socket_timeout)
     
     if (socket_desc == -1)
     {
-        std::cout << "\r\n!!! Could not create socket \r\n" << std::endl;   
+        std::cout << "\r\n!!! Could not create socket \r\n" << std::endl;  
+        syslog(LOG_WARNING | LOG_PID, "Could not create socket");                
+        
         return -1;        
     }
     else
     {
         //std::cout << "Socket created: "<< socket_desc << "\r\n" << std::endl;   
         std::cout << "\r\nSocket created "<< "\r\n" << std::endl;   
+        syslog(LOG_NOTICE | LOG_PID, "Socket created");                
     }
 
     struct timeval timeout;      
@@ -56,11 +60,13 @@ int createSocket(int port, int socket_timeout)
     if (setsockopt (socket_desc, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) < 0)        
     {
         std::cout << "!!! setsockopt failed \r" << std::endl;           
+        syslog(LOG_WARNING | LOG_PID, "setsockopt failed SO_RCVTIMEO");                
     }
 
     if (setsockopt (socket_desc, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) < 0)
     {
         std::cout << "!!! setsockopt failed \r" << std::endl;           
+        syslog(LOG_WARNING | LOG_PID, "setsockopt failed SO_SNDTIMEO");                
     }
     
          
@@ -72,19 +78,24 @@ int createSocket(int port, int socket_timeout)
     //Bind
     if( bind(socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0)
     {        
-        std::cout << "!!! Bind failed \r\n" << std::endl;           
+        std::cout << "!!! Bind failed \r\n" << std::endl;       
+        syslog(LOG_WARNING | LOG_PID, "Bind failed");                
         
         return -1;
     }    
     
-    std::cout << "Bind done \r\n" << std::endl;           
+    std::cout << "Bind done \r\n" << std::endl;     
+    syslog(LOG_NOTICE | LOG_PID, "Bind done");                
+    
     
      
     //Listen
     listen(socket_desc , max_client);
      
     //Accept and incoming connection
-    std::cout << "Waiting for incoming connections...  \r\n" << std::endl;               
+    std::cout << "Waiting for incoming connections...  \r\n" << std::endl;
+    syslog(LOG_NOTICE | LOG_PID, "Waiting for incoming connections...");                
+    
     c = sizeof(struct sockaddr_in);
     
     
@@ -94,8 +105,8 @@ int createSocket(int port, int socket_timeout)
 
 void closeSocket(int fd)
 {
-    shutdown(fd, SHUT_RDWR);
-    close(fd);
+    shutdown(fd, SHUT_RDWR); //Close connection
+    close(fd);               //Close socket
 };
 
 
